@@ -13,5 +13,4 @@ jobs:
         uses: arduino/compile-sketches@v1
         with:
           fqbn: arduino:avr:nano # Example FQBN for an Arduino Uno
-          sketch-path: dnd_compass.ino # Path to your sketch folder/file
 
