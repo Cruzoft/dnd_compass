@@ -1,0 +1,17 @@
+name: DnD Compass CI Build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compile sketches
+        uses: arduino/compile-sketches@v1
+        with:
+          fqbn: arduino:avr:nano # Example FQBN for an Arduino Uno
+          sketch-path: dnd_compass.ino # Path to your sketch folder/file
+
