@@ -13,4 +13,8 @@ jobs:
         uses: arduino/compile-sketches@v1
         with:
           fqbn: arduino:avr:nano # Example FQBN for an Arduino Uno
-
+          sketch-paths: |
+            - ./
+          libraries: |
+            # No libraries needed so far
+            -
