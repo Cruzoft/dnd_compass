@@ -3,7 +3,7 @@
   An arcane magical compass to guide you through your adventure.
 */
 
-//#define DISABLE_LOGGING // Uncomment this line to prevent logging library to be compiled
+#define DISABLE_LOGGING // Uncomment this line to prevent logging library to be compiled
 
 #include <EEPROM.h>
 
