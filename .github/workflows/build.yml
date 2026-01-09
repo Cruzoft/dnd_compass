@@ -16,5 +16,5 @@ jobs:
           sketch-paths: |
             - ./
           libraries: |
-            # No libraries needed so far
-            -
+            - name: Servo
+            - name: SoftwareSerial
