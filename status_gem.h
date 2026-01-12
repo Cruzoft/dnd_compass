@@ -6,12 +6,10 @@ static const int GEM_PIN_R = A0;
 static const int GEM_PIN_G = A1;
 static const int GEM_PIN_B = A2;
 
-setColor(0, 255, 255); // Cian
-
 const int colors[][3] = {
-  {0, 255, 255} // Cian
-  {255, 150, 0}, // Yellow/Orange
-}
+  {0, 255, 255}, // Cian
+  {255, 150, 0} // Yellow/Orange
+};
 
 // Initialize
 void setupStatusGem() {
