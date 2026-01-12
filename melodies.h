@@ -34,6 +34,7 @@ const int BZR_MELODY_FAIL = 3;
 const byte BZR_STATE_STANDBY = 0;
 const byte BZR_STATE_PLAYING = 1;
 
+static byte melodyState = BZR_STATE_STANDBY;
 static unsigned long previousMelodyMillis = 0;
 
 // Notas de la melodía
@@ -128,13 +129,13 @@ void _play( int melody, int repetition = 1 ){
 }
 
 void updateMelodyState() {
-  if (currentMillis - previousNeedleMillis < NEEDLE_INTERVAL)
+  if (currentMillis - previousMelodyMillis < BZR_INTERVAL)
     return;
   
   // its time for another move
-  previousNeedleMillis += NEEDLE_INTERVAL;
+  previousMelodyMillis += BZR_INTERVAL;
 
-  switch( needleState )
+  switch( melodyState )
   {
     case BZR_STATE_STANDBY:
       break;

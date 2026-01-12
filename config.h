@@ -2,6 +2,11 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-extern long currentMillis = 0;
+// UNCOMMENT this line to disable logging everywhere
+//#define DISABLE_LOGGING 
+
+#include "ArduinoLog.h"
+
+extern long currentMillis;
 
 #endif // CONFIG_H

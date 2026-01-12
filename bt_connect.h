@@ -4,6 +4,8 @@
 
 #include <SoftwareSerial.h>
 
+#include "MagicNeedle.h"
+
 const int BTC_INTERVAL = 300;
 const int BTC_PIN_TX = 5;
 const int BTC_PIN_RX = 4;
@@ -42,16 +44,16 @@ void updateBTCState() {
     // (btData == "12345678901234567890"){
     if (btData == "CMD_STOP"){
         Log.noticeln("[BTC] - STOP");
-        stopNeedle();
+        needle.stop();
     } else if (btData == "CMD_SCAN"){
       Log.noticeln("[BTC] - SCAN");
-      startNeedleScanning();
+      needle.startScanning();
     } else if (btData == "CMD_LOST"){
       Log.noticeln("[BTC] - LOST ");
     } else if (btData.startsWith("CMD_MOVE_TO_")){
       btData.replace("CMD_MOVE_TO_", "");
       int position = btData.toInt();
-      moveNeedleToPossition(position);
+      needle.moveToPosition(position);
       Log.noticeln("[BTC] - MOVE TO %d", position);
     } 
   }

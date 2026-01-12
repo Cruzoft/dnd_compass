@@ -3,15 +3,10 @@
   An arcane magical compass to guide you through your adventure.
 */
 
-//#define DISABLE_LOGGING // Uncomment this line to prevent logging library to be compiled
-
-//#include <EEPROM.h>
-
-#include "ArduinoLog.h"
-
 #include "config.h"
-#include "magic_needle.h"
+
 #include "bt_connect.h"
+#include "MagicNeedle.h"
 #include "status_gem.h"
 #include "compass_lights.h"
 #include "melodies.h"
@@ -32,7 +27,7 @@ void setup() {
   Log.noticeln("--- BOOT ---");
   Log.noticeln("[DnD] - # Initiating The Eye of Aldrin");
   setupBTConnect();
-  setupNeedle();
+  needle.begin();
   setupStatusGem();
   setupCompassLights();
   setupMelodyBuzzer();
@@ -44,5 +39,5 @@ void loop() {
                               //   this is equivalent to noting the time from a clock
                               //   use the same time for all LED flashes to keep them synchronized
   updateBTCState();
-  updateMagicNeedleState();
+  needle.update(currentMillis);
 }
