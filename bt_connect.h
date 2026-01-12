@@ -5,8 +5,8 @@
 #include <SoftwareSerial.h>
 
 const int BTC_INTERVAL = 300;
-const int BTC_PIN_TX = 6;
-const int BTC_PIN_RX = 7;
+const int BTC_PIN_TX = 5;
+const int BTC_PIN_RX = 4;
 const String BTC_NAME = "Eye-Of-Aldric";
 const String BTC_CODE_PIN = "1977";
 const byte BTC_STANDBY = 0;

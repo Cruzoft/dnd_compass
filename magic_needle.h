@@ -5,15 +5,15 @@
 #include <Arduino.h> // Necessary for Arduino functions in this file
 #include <Servo.h> // Include Servo library
 
+static const int NEEDLE_PIN = 3;
 const int NEEDLE_INTERVAL = 80;
 const int NEEDLE_POSITIONS = 20; // Options: 1, 2, 4, 5, 8, 10, 16, 20
-static int NEEDLE_PIN = 3;
-const byte NEEDLE_STANDBY = 0;
-const byte NEEDLE_MOVE = 1;
-const byte NEEDLE_SCAN = 2;
+const byte NEEDLE_STATE_STANDBY = 0;
+const byte NEEDLE_STATE_MOVE = 1;
+const byte NEEDLE_STATE_SCAN = 2;
 
 static Servo needleServo;
-static byte needleState = NEEDLE_STANDBY;
+static byte needleState = NEEDLE_STATE_STANDBY;
 static unsigned long previousNeedleMillis = 0;
 static int needlePosition = 90;
 static int needleTargetPosition = 90;
@@ -32,27 +32,27 @@ void setupNeedle() {
 }
 
 void startNeedleScanning() {
-  needleState = NEEDLE_SCAN;
+  needleState = NEEDLE_STATE_SCAN;
   needleServo.attach(NEEDLE_PIN);
 }
 
 void moveNeedleToPossition(int position) {
   needleSpeed = abs(needleSpeed);
-  needleState = NEEDLE_MOVE;
+  needleState = NEEDLE_STATE_MOVE;
   needleTargetPosition = position * NEEDLE_POSITIONS;
   needleServo.attach(NEEDLE_PIN);
 }
 
 void moveNeedleToCenter() {
   needleSpeed = abs(needleSpeed);
-  needleState = NEEDLE_MOVE;
+  needleState = NEEDLE_STATE_MOVE;
   needleTargetPosition = 90;
   needleServo.attach(NEEDLE_PIN);
 }
 
 void stopNeedle() {
   needleSpeed = abs(needleSpeed);
-  needleState = NEEDLE_STANDBY;
+  needleState = NEEDLE_STATE_STANDBY;
   needleServo.detach();
   Log.traceln("[MDL] - Needle stoped.");
 }
@@ -115,13 +115,13 @@ void updateMagicNeedleState() {
 
   switch( needleState )
   {
-    case NEEDLE_STANDBY:
+    case NEEDLE_STATE_STANDBY:
       break;
-    case NEEDLE_MOVE:
+    case NEEDLE_STATE_MOVE:
       Log.traceln("[MDL] - Moving needle from %d to %d at %d.", needlePosition, needleTargetPosition, needleSpeed);
       _move();
       break;
-    case NEEDLE_SCAN:
+    case NEEDLE_STATE_SCAN:
       Log.traceln("[MDL] - Scanning on %d at %d.", needlePosition, needleSpeed);
       _scan();
       break;

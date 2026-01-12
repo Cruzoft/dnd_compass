@@ -12,8 +12,11 @@
 #include "config.h"
 #include "magic_needle.h"
 #include "bt_connect.h"
+#include "status_gem.h"
+#include "compass_lights.h"
+#include "melodies.h"
 
-const char *version = "v0.2.2";
+const char *version = "v0.3.0";
 
 void setup() {
   // write a 0 to all 512 bytes of the EEPROM
@@ -30,6 +33,9 @@ void setup() {
   Log.noticeln("[DnD] - # Initiating The Eye of Aldrin");
   setupBTConnect();
   setupNeedle();
+  setupStatusGem();
+  setupCompassLights();
+  setupMelodyBuzzer();
   Log.noticeln("[DnD] - # Ready to Roll (Setup done)");
 }
 
