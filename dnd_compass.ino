@@ -5,13 +5,13 @@
 
 #include "config.h"
 
-#include "bt_connect.h"
 #include "MagicNeedle.h"
+#include "melodies.h"
 #include "status_gem.h"
 #include "compass_lights.h"
-#include "melodies.h"
+#include "BTManager.h"
 
-const char *version = "v0.3.0";
+const char *version = "v0.3.1";
 
 void setup() {
   // write a 0 to all 512 bytes of the EEPROM
@@ -26,7 +26,7 @@ void setup() {
   // put your setup code here, to run once:
   Log.noticeln("--- BOOT ---");
   Log.noticeln("[DnD] - # Initiating The Eye of Aldrin");
-  setupBTConnect();
+  btc.begin();
   needle.begin();
   setupStatusGem();
   setupCompassLights();
@@ -38,6 +38,6 @@ void loop() {
   currentMillis = millis();   // capture the latest value of millis()
                               //   this is equivalent to noting the time from a clock
                               //   use the same time for all LED flashes to keep them synchronized
-  updateBTCState();
+  btc.update(currentMillis);
   needle.update(currentMillis);
 }
