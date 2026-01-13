@@ -6,12 +6,12 @@
 #include "config.h"
 
 #include "MagicNeedle.h"
-#include "melodies.h"
+#include "BuzzerManager.h"
 #include "status_gem.h"
 #include "compass_lights.h"
 #include "BTManager.h"
 
-const char *version = "v0.3.1";
+const char *version = "v0.3.2";
 
 void setup() {
   // write a 0 to all 512 bytes of the EEPROM
@@ -30,7 +30,7 @@ void setup() {
   needle.begin();
   setupStatusGem();
   setupCompassLights();
-  setupMelodyBuzzer();
+  bzr.begin();
   Log.noticeln("[DnD] - # Ready to Roll (Setup done)");
 }
 
@@ -40,4 +40,5 @@ void loop() {
                               //   use the same time for all LED flashes to keep them synchronized
   btc.update(currentMillis);
   needle.update(currentMillis);
+  bzr.update(currentMillis);
 }
