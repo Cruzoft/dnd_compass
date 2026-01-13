@@ -9,6 +9,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Arduino Lint
+        uses: arduino/arduino-lint-action@v2 # Use the latest version
+        with:
+          # Optional inputs:
+          compliance: specification # 'permissive', 'specification', or 'strict'
+          library-manager: update   # Use 'submit' or 'update' for Library Manager checks
+          project-type: library     # 'sketch', 'library', or 'platform'
+
       - name: Compile sketches
         uses: arduino/compile-sketches@v1
         with:
