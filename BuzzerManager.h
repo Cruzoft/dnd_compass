@@ -45,7 +45,7 @@ class BuzzerManager {
     BuzzerManager();
     void begin();
     void update(unsigned long currentMillis);
-    void play(MelodyType melody);
+    void play(MelodyType melody, bool shouldLoop = false);
     void stop();
 private:
     MelodyType _currentMelody;
@@ -53,6 +53,7 @@ private:
     int _totalNotes;
     unsigned long _nextNoteTime;
     bool _isPlaying;
+    bool _isLooping;
 
     void _getNextNote();
 };

@@ -5,12 +5,14 @@
 #include <Arduino.h>
 #include <SoftwareSerial.h>
 #include "MagicNeedle.h"
+#include "BuzzerManager.h"
 
 // Use constexpr for memory efficiency
 namespace BTConfig {
     constexpr int INTERVAL = 300;
     constexpr int PIN_TX = 5;
     constexpr int PIN_RX = 4;
+    constexpr int FRAME_TIMEOUT = 50;
     constexpr uint32_t BAUD_RATE = 9600;
     constexpr char NAME[] = "Eye-Of-Aldric";
     constexpr char PIN_CODE[] = "1977";
@@ -28,9 +30,9 @@ private:
     unsigned long _previousMillis;
     char _buffer[BTConfig::BUFFER_SIZE];
     size_t _bufferIdx;
+    unsigned long _lastByteTime; // To track inter-byte timeouts
 
     void _handleCommand(char* cmd);
-    void _readSerial();
 };
 
 // Global instance to be used in main .ino

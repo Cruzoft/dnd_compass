@@ -24,8 +24,9 @@ void BuzzerManager::begin() {
   play(MelodyType::START); // Play start sound on boot
 }
 
-void BuzzerManager::play(MelodyType melody) {
+void BuzzerManager::play(MelodyType melody, bool shouldLoop = false) {
     _currentMelody = melody;
+    _isLooping = shouldLoop;
     _noteIndex = 0;
     _isPlaying = true;
     _nextNoteTime = 0; // Trigger immediately on next update
@@ -43,6 +44,7 @@ void BuzzerManager::play(MelodyType melody) {
         case MelodyType::FAIL:
           _totalNotes = 4;
           break;
+        case MelodyType::NONE:
         default: 
           _isPlaying = false;
           break;
@@ -88,6 +90,13 @@ void BuzzerManager::update(unsigned long currentMillis) {
     
     _noteIndex++;
     if (_noteIndex >= _totalNotes) {
-        _isPlaying = false; // Melody finished
+        if (_isLooping) {
+            _noteIndex = 0; // Reset to the start of the melody
+            
+            // Optional: Add a longer pause between loops (e.g., 500ms)
+            _nextNoteTime += 500; 
+        } else {
+            _isPlaying = false; // Stop if not looping
+        }
     }
 }
