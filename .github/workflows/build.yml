@@ -15,7 +15,7 @@ jobs:
           # Optional inputs:
           compliance: specification # 'permissive', 'specification', or 'strict'
           library-manager: update   # Use 'submit' or 'update' for Library Manager checks
-          project-type: library     # 'sketch', 'library', or 'platform'
+          project-type: sketch    # 'sketch', 'library', or 'platform'
 
       - name: Compile sketches
         uses: arduino/compile-sketches@v1
