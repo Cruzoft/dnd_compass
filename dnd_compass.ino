@@ -3,7 +3,8 @@
   An arcane magical compass to guide you through your adventure.
 */
 
-#include "config.h"
+#include "config.h"   // Centralized logging & constants
+#include <avr/wdt.h>  // Watchdog timer for AVR boards
 
 #include "MagicNeedle.h"
 #include "BuzzerManager.h"
@@ -11,33 +12,38 @@
 #include "compass_lights.h"
 #include "BTManager.h"
 
-const char *version = "v0.3.2";
+const char *version = "v0.4.0";
 
 void setup() {
-  // write a 0 to all 512 bytes of the EEPROM
-  //for (int i = 0; i < 512; i++)
-  //  EEPROM.write(i, 0);
-    
-  Serial.begin(9600);
-  while(!Serial && !Serial.available()){}
-  // logging
+  // High-speed Serial for non-blocking logs
+  Serial.begin(115200);
+  // Initializing logging
   Log.begin(LOG_LEVEL_VERBOSE, &Serial);
   Serial.println(version);
-  // put your setup code here, to run once:
-  Log.noticeln("--- BOOT ---");
-  Log.noticeln("[DnD] - # Initiating The Eye of Aldrin");
+  // Hardware Initialization
+  Log.noticeln("--- SYSTEM BOOT ---");
+  Log.noticeln("[SYS] - # Initiating The Eye of Aldrin");
   btc.begin();
   needle.begin();
   setupStatusGem();
   setupCompassLights();
   bzr.begin();
-  Log.noticeln("[DnD] - # Ready to Roll (Setup done)");
+
+  // Enable Watchdog Timer (Set to 2 seconds)
+  wdt_enable(WDTO_2S); // If loop() takes longer than 2s to complete, the system resets.
+
+  Log.noticeln("[SYS] - # Ready to Roll (Setup done)");
 }
 
 void loop() {
+  // Reset the Watchdog timer at the start of every loop
+  wdt_reset();
+
   currentMillis = millis();   // capture the latest value of millis()
                               //   this is equivalent to noting the time from a clock
                               //   use the same time for all LED flashes to keep them synchronized
+  
+  // State Machines
   btc.update(currentMillis);
   needle.update(currentMillis);
   bzr.update(currentMillis);
