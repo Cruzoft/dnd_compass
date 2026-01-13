@@ -73,6 +73,7 @@ void MagicNeedle::_processMove() {
     int distance = _targetPos - _currentPos;
     
     // Check if we arrived
+    Log.traceln("[MDL] - Pos: %d | Tar: %d | Dis: %d | Spd: %d", _currentPos, _targetPos, abs(distance), abs(_speed));
     if (abs(distance) <= abs(_speed)) {
         _currentPos = _targetPos;
         _writeToServo(_currentPos);

@@ -7,7 +7,7 @@
 namespace NeedleConfig {
     constexpr int PIN = 3;
     constexpr int INTERVAL = 80;
-    constexpr int POS_MULTIPLIER = 20; 
+    constexpr int POS_MULTIPLIER = 20;
     constexpr int MAX_DEGREES = 170;
     constexpr int MIN_DEGREES = 10;
     constexpr int DEFAULT_SPEED = 3;
@@ -25,7 +25,7 @@ public:
     MagicNeedle();
     void begin();
     void update(unsigned long currentMillis);
-    
+
     void startScanning();
     void moveToPosition(int position);
     void moveToCenter();
@@ -35,7 +35,7 @@ private:
     Servo _servo;
     NeedleState _state;
     unsigned long _previousMillis;
-    
+
     int _currentPos;
     int _targetPos;
     int _speed;
@@ -48,4 +48,4 @@ private:
 
 extern MagicNeedle needle;
 
-#endif // MAGIC_NEEDLE_H
+#endif  // MAGIC_NEEDLE_H
