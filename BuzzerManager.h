@@ -23,7 +23,7 @@
 
 
 namespace BuzzerConfig {
-    constexpr int PIN = 2;
+    constexpr int PIN = 8;
     constexpr float PAUSE_COEFFICIENT = 1.30;
 }
 

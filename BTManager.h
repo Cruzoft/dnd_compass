@@ -6,12 +6,13 @@
 #include <SoftwareSerial.h>
 #include "MagicNeedle.h"
 #include "BuzzerManager.h"
+#include "StatusGem.h"
 
 // Use constexpr for memory efficiency
 namespace BTConfig {
     constexpr int INTERVAL = 300;
-    constexpr int PIN_TX = 5;
-    constexpr int PIN_RX = 4;
+    constexpr int PIN_TX = 4;
+    constexpr int PIN_RX = 7;
     constexpr int FRAME_TIMEOUT = 50;
     constexpr uint32_t BAUD_RATE = 9600;
     constexpr char NAME[] = "Eye-Of-Aldric";

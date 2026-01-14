@@ -5,7 +5,7 @@
 #include <Servo.h>
 
 namespace NeedleConfig {
-    constexpr int PIN = 3;
+    constexpr int PIN = 2;
     constexpr int INTERVAL = 80;
     constexpr int POS_MULTIPLIER = 20;
     constexpr int MAX_DEGREES = 170;

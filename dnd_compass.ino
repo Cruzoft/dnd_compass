@@ -8,26 +8,27 @@
 
 #include "MagicNeedle.h"
 #include "BuzzerManager.h"
-#include "status_gem.h"
+#include "StatusGem.h"
 #include "compass_lights.h"
 #include "BTManager.h"
 
-const char *version = "v0.4.1";
+const char *version = "v0.4.2";
 
 void setup() {
   // High-speed Serial for non-blocking logs
   Serial.begin(115200);
   // Initializing logging
   Log.begin(LOG_LEVEL_VERBOSE, &Serial);
+  delay(500);
   Serial.println(version);
   // Hardware Initialization
   Log.noticeln("--- SYSTEM BOOT ---");
   Log.noticeln("[SYS] - # Initiating The Eye of Aldrin");
   btc.begin();
-  needle.begin();
-  setupStatusGem();
-  setupCompassLights();
   bzr.begin();
+  gem.begin();
+  needle.begin();
+  setupCompassLights();
 
   // Enable Watchdog Timer (Set to 2 seconds)
   wdt_enable(WDTO_2S); // If loop() takes longer than 2s to complete, the system resets.
@@ -45,6 +46,7 @@ void loop() {
   
   // State Machines
   btc.update(currentMillis);
-  needle.update(currentMillis);
   bzr.update(currentMillis);
+  gem.update(currentMillis);
+  needle.update(currentMillis);
 }

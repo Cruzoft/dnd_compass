@@ -31,6 +31,7 @@ void BTManager::begin() {
 void BTManager::update(unsigned long currentMillis) {
     while (_btSerial.available() > 0) {
         char c = _btSerial.read();
+        Serial.print(c);
         _lastByteTime = currentMillis; 
 
         if (c == '\n' || c == '\r') {
@@ -55,16 +56,19 @@ void BTManager::update(unsigned long currentMillis) {
 void BTManager::_handleCommand(char* cmd) {
     if (strcmp(cmd, "CMD_STOP") == 0) {
         Log.noticeln("[BTC] - STOP");
+        gem.setState(GemState::STANDBY);
         bzr.play(MelodyType::NONE);
         needle.stop();
     } 
     else if (strcmp(cmd, "CMD_SCAN") == 0) {
         Log.noticeln("[BTC] - SCAN");
         needle.startScanning();
+        gem.setState(GemState::SEARCHING);
         bzr.play(MelodyType::SEARCH, true); // Play the search melody indefinitely
     } 
     else if (strcmp(cmd, "CMD_LOST") == 0) {
         needle.moveToCenter();
+        gem.setState(GemState::FAIL);
         bzr.play(MelodyType::FAIL);
         Log.noticeln("[BTC] - LOST");
     } 
@@ -72,6 +76,7 @@ void BTManager::_handleCommand(char* cmd) {
         // Extract integer from position 12 onwards
         int position = atoi(cmd + 12); 
         needle.moveToPosition(position);
+        gem.setState(GemState::SUCCESS);
         bzr.play(MelodyType::FOUND);
         Log.noticeln("[BTC] - MOVE TO %d", position);
     }
