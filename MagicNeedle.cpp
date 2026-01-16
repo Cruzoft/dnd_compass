@@ -82,8 +82,8 @@ void MagicNeedle::_processMove() {
     }
 
     // Move step-wise
-    if (distance > 0) _currentPos += _speed;
-    else _currentPos -= _speed;
+    if (_currentPos > _targetPos) _currentPos -= abs(_speed);
+    else _currentPos += abs(_speed);
 
     _writeToServo(_currentPos);
 }
