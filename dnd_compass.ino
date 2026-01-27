@@ -12,7 +12,7 @@
 #include "CompassLights.h"
 #include "BTManager.h"
 
-const char *version = "v0.5.1";
+const char *version = "v0.6.0";
 
 void setup() {
   // High-speed Serial for non-blocking logs
