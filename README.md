@@ -14,3 +14,4 @@ A DnD Ancient Arcane Artifact that will guide the adventurer to their destiny ( 
 - v0.4.0 - Added an AVR Watchdog to reboot the board if it hangs
 - v0.4.1 - Fixing BT pins layout and adding calls to the rest of the handled commands.
 - v0.5.0 - Added Status Gem library with an RGB light.
+- v0.5.1 - Added UniqID.

@@ -56,7 +56,7 @@ void MagicNeedle::moveToPosition(int position) {
     
     _state = NeedleState::MOVE;
     _attachIfNeeded();
-    Log.noticeln("[MDL] - Moving to Position: %d (Angle: %d)", position, _targetPos);
+    Log.traceln("[MDL] - Moving to Position: %d (From: %d)", _targetPos, position);
 }
 
 void MagicNeedle::moveToCenter() {

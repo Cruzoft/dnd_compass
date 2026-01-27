@@ -41,17 +41,17 @@ void StatusGem::_pickNextTargetColor() {
         case GemState::SEARCHING:
             _target = PALETTE_SEARCH[_paletteIndex];
             _paletteIndex = (_paletteIndex + 1) % 2;
-            _transitionDuration = 800;  // Fast pulsing
+            _transitionDuration = 2500;  // Fast pulsing
             break;
         case GemState::SUCCESS:
             _target = PALETTE_SUCCESS[_paletteIndex];
             _paletteIndex = (_paletteIndex + 1) % 2;
-            _transitionDuration = 500;
+            _transitionDuration = 2500;
             break;
         case GemState::FAIL:
             _target = PALETTE_FAIL[_paletteIndex];
             _paletteIndex = (_paletteIndex + 1) % 2;
-            _transitionDuration = 300; // Urgent flicker
+            _transitionDuration = 1500; // Urgent flicker
             break;
     }
 }

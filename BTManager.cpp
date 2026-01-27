@@ -31,7 +31,7 @@ void BTManager::begin() {
 void BTManager::update(unsigned long currentMillis) {
     while (_btSerial.available() > 0) {
         char c = _btSerial.read();
-        Serial.print(c);
+        //Serial.print(c);
         _lastByteTime = currentMillis; 
 
         if (c == '\n' || c == '\r') {
@@ -47,6 +47,7 @@ void BTManager::update(unsigned long currentMillis) {
 
     // 2. TIMEOUT CHECK (Only process if no new data arrived for 50ms)
     if (_bufferIdx > 0 && (currentMillis - _lastByteTime > BTConfig::FRAME_TIMEOUT)) {
+        Log.traceln("[BTC] - Timeout Check");
         _buffer[_bufferIdx] = '\0';
         _handleCommand(_buffer); // This will finally trigger!
         _bufferIdx = 0;
@@ -74,10 +75,14 @@ void BTManager::_handleCommand(char* cmd) {
     } 
     else if (strncmp(cmd, "CMD_MOVE_TO_", 12) == 0) {
         // Extract integer from position 12 onwards
-        int position = atoi(cmd + 12); 
+        int position = atoi(&cmd[12]); // This is the Servo target position
+        // Extract chars from position 15 onwards
+        char* cardinal = &cmd[15]; // This is the Compass target direction
         needle.moveToPosition(position);
+        compass.setState(CompassState::SUCCESS);
+        compass.setTargetByCardinal(cardinal);
         gem.setState(GemState::SUCCESS);
         bzr.play(MelodyType::FOUND);
-        Log.noticeln("[BTC] - MOVE TO %d", position);
+        Log.noticeln("[BTC] - MOVE TO %d FACING %s", position, cardinal);
     }
 }
