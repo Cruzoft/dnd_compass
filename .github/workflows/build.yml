@@ -25,4 +25,5 @@ jobs:
             - ./
           libraries: |
             - name: Servo
+            - name: ArduinoUniqueID
             #- name: SoftwareSerial
