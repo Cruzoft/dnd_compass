@@ -5,6 +5,7 @@
 #include <Arduino.h>
 #include <SoftwareSerial.h>
 #include "MagicNeedle.h"
+#include "CompassLights.h"
 #include "BuzzerManager.h"
 #include "StatusGem.h"
 
@@ -13,7 +14,7 @@ namespace BTConfig {
     constexpr int INTERVAL = 300;
     constexpr int PIN_TX = 4;
     constexpr int PIN_RX = 7;
-    constexpr int FRAME_TIMEOUT = 50;
+    constexpr int FRAME_TIMEOUT = 20;
     constexpr uint32_t BAUD_RATE = 9600;
     constexpr char NAME[] = "Eye-Of-Aldric";
     constexpr char PIN_CODE[] = "1977";
